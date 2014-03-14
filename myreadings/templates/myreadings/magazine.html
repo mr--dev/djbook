@@ -1,0 +1,75 @@
+{% extends "myreadings/base.html" %}
+
+{% load staticfiles %}
+{% block content %}
+<div class="container">
+
+	<!-- Left Col -->
+	<div class="col-sm-9">
+		<!-- Books -->
+		<div class="row">
+			<form class="form-horizontal" role="form" method="POST" action="/myreadings/magazine/save/" id="magazine-form">
+				{% csrf_token %}
+				<fieldset>
+					<legend>Magazine - detail</legend>
+					<input type="hidden" name="magazine-id" id="magazine-id" value="{{magazine.id}}" />
+					<div class="form-group">
+						<label for="title" class="col-sm-1 control-label">Title</label>
+						<div class="col-sm-3">
+							<input type="text" name="title" id="title" class="form-control update" value="{{magazine.title}}"/>
+						</div>
+						<label for="number" class="col-sm-1 control-label">Number</label>
+						<div class="col-sm-2">
+							<input type="text" name="number" id="number" class="form-control" 
+							value="{% if magazine.number and magazine.number != -1 %}{{magazine.number}}{% else %}{% endif%}"/>
+						</div>
+						<label for="published-date" class="col-sm-1 control-label">Year</label>
+						<div class="col-sm-2">
+							<input type="text" name="published-date" id="published-date" class="form-control" value="{{magazine.published_date}}"/>
+						</div>
+						<label for="month" class="col-sm-1 control-label">Month</label>
+						<div class="col-sm-1">
+							<input type="text" name="month" id="month" class="form-control" 
+							value="{% if magazine.month and magazine.month != -1 %}{{magazine.month}}{% else %}{% endif %}"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="description" class="col-sm-2 control-label">Description</label>
+						<div class="col-sm-4">
+							<textarea class="form-control" name="description" id="description" rows="4" style="resize: none;">{{magazine.description}}</textarea>
+						</div>
+						<label for="thumbnail" class="col-sm-2 control-label">Thumbnail</label>
+						<div class="col-sm-4">
+							<input type="text" name="thumbnail" id="thumbnail" class="form-control update" value="{{magazine.thumbnail}}">
+							<span class="help-block">Insert Logo URL</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary col-sm-12">
+						<span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		
+	</div>
+	<!-- /.Left Col -->
+	
+	<!-- Right Col -->
+	<div class="col-sm-3" id="search-form">
+		<div class="panel panel-success" style="padding: 5px;">
+			<div class="panel-heading">Summary</div>
+			<div class="panel-body">
+				<img id="summary-thumbnail" style="position: relative; width: 140px; height: 200px; margin: 0 0 0 -70px; left: 50%;" src="{{magazine.thumbnail}}" class="img-thumbnail">
+				<p id="summary-title" class="text-center" style="font-weight: bold;">{{magazine.title}}</p>
+			</div>
+		</div>
+	</div>
+	<!-- /.Right Col -->
+	
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'myreadings/js/magazine.js' %}"></script>
+{% endblock %}

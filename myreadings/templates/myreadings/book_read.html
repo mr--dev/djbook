@@ -1,0 +1,101 @@
+{% extends "myreadings/base.html" %}
+
+{% load staticfiles %}
+{% block content %}
+<div class="container">
+
+	<!-- Left Col -->
+	<div class="col-sm-9">
+		<!-- Books -->
+		<div class="row">
+			<h4><span class="label label-info">Books Read - [{{params.total_read}}]</span></h4>
+			<div class="col-sm-12">
+				<table class="table table-striped table-hover table-condensed" id="book-read-table">
+					<thead>
+						<tr>
+							<th class="year">Year</th>
+							<th class="month">Month</th>
+							<th class="title">Title</th>
+							<th class="author">Author</th>
+							<th class="rate">Rate</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for rr in readrate %}
+						<tr>
+							<td class="year">{{rr.year}}</td>
+							<td class="month">{{rr.month}}</td>
+							<td class="title"><a href="/myreadings/book/{{rr.book.id}}/details/">{{rr.book.title}}</a></td>
+							<td class="author">{{rr.book.author_set.all|join:", "}}</td>
+							<td class="rate">
+								{% for i in "12345"|make_list %}
+									{% if forloop.counter <= rr.rate %}
+										<span class="glyphicon glyphicon-star"></span>
+									{% else %}
+										<span class="glyphicon glyphicon-star-empty"></span>
+									{% endif%}
+								{% endfor %}
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<div class="col-sm-12">
+				<ul class="pager">
+					<li><a onclick="javascript:b.filterPrev();">&larr; Prev</a></li>
+					<li>Page {{params.page}} of {{params.total_pages}}</li>
+					<li><a onclick="javascript:b.filterNext();">Next &rarr;</a></li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+	<!-- /.Left Col -->
+	
+	<!-- Right Col -->
+	<div class="col-sm-3">
+		<div class="panel panel-success" style="padding: 5px;" id="read-book-panel">
+			<div class="panel-heading">Filter</div>
+			<div class="panel-body">
+				<div class="form-horizontal">
+					<input type="hidden" name="page" id="page" value="{{params.page}}" />
+					<input type="hidden" name="total-pages" id="total-pages" value="{{params.total_pages}}" />
+					<div class="form-group">
+						<label for="rr-year" class="control-label col-sm-4">Year:</label>
+						<div class="form-group col-sm-8">
+							<select id="rr-year" name="rr-year" class="form-control">
+								<option value="all">All</option>
+								{% for rroy in rr_options.year %}
+								<option value="{{rroy}}" {% if rroy == params.year %}selected{% endif %}>{{rroy}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="rr-month" class="control-label col-sm-4">Month:</label>
+						<div class="form-group col-sm-8">
+							<select id="rr-month" name="rr-month" class="form-control">
+								<option value="all">All</option>
+								{% for rrom in rr_options.month %}
+								<option value="{{rrom.value}}" {% if rrom.value == params.month %}selected{% endif%}>{{rrom.month_name}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<button type="button" class="btn btn-primary col-sm-12" onclick="javascript:b.filter();">Filter</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.Right Col -->
+	
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script type="text/javascript" src="{% static 'myreadings/js/book.js' %}"></script>
+{% endblock %}

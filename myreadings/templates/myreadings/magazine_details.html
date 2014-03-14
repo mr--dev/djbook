@@ -1,0 +1,66 @@
+{% extends "myreadings/base.html" %}
+
+{% load staticfiles %}
+{% block content %}
+<div class="container">
+
+	<!-- Left Col -->
+	<div class="col-sm-9">
+		<!-- Books Detail-->
+		<form class="form-horizontal" role="form">
+			<fieldset>
+				<legend>Magazine - details</legend>
+			</fieldset>
+			<div class="row">
+				<div class="col-sm-3">
+					<img class="book-thumbnail img-thumbnail" src="{{magazine.thumbnail}}">
+				</div>
+				<div class="col-sm-9">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Title:</label>
+						<div class="col-sm-4">
+							<p id="title" class="form-control-static">{{magazine.title}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Numbers:</label>
+						<div class="col-sm-10">
+							<table class="table table-striped table-hover table-condensed" id="magazine-details-table">
+								<thead>
+									<tr>
+										<th class="number">#</th>
+										<th class="published-date">Year</th>
+										<th class="month">Month</th>
+										<th class="description">Description</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for m in magazines %}
+									<tr>
+										<td class="number">{{m.number}}</td>
+										<td class="published-date">{{m.published_date}}</td>
+										<td class="month">{{m.month}}</td>
+										<td class="description">{{m.description}}</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		
+	</div>
+	<!-- /.Left Col -->
+	
+	<!-- Right Col -->
+	{% include "myreadings/sidebar_action.html" %}
+	<!-- /.Right Col -->
+	
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'myreadings/js/magazine.js' %}"></script>
+{% endblock %}

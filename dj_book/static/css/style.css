@@ -1,0 +1,52 @@
+.cursor-pointer { cursor: pointer; }
+input.error { border-color: red !important; }
+label.error { display: none !important; }
+.edit a, .delete a, .read-rate a { color: #333; cursor: pointer; }
+.pager a { cursor: pointer; }
+tr.readrate td { background-color: #d0e9c6 !important; }
+
+.book-thumbnail {
+	width: 140px; 
+	height: 200px;
+	position: relative; 
+	margin: 0 0 0 -70px; 
+	left: 50%;
+}
+
+.book-description {
+	font-size: 0.9em;
+	max-height: 200px;
+	overflow-y: auto; 
+}
+
+#book-search-table { width: 100%; }
+#book-search-table .title { width: 30% }
+#book-search-table .author { width: 25% }
+#book-search-table .publisher {width: 20%; }
+#book-search-table .ebook, #book-search-table .currently-reading, #book-search-table .read-rate, #book-search-table .edit, #book-search-table .delete { width: 5% }
+
+#books-by-author-table { width: 100%; }
+#books-by-author-table .title, #books-by-author-table .author { width: 30%; }
+#books-by-author-table .publisher { width: 20%; }
+#books-by-author-table .ebook, #books-by-author-table .currently-reading { width: 10%; }
+
+#book-read-table { width: 100%; }
+#book-read-table .year, #book-read-table .month {width: 10%; }
+#book-read-table .title { width: 35%; }
+#book-read-table .author { width: 30%; }
+#book-read-table .rate { width: 15%; } 
+
+#magazine-search-table { width: 100%; }
+#magazine-search-table .title { width: 20%; }
+#magazine-search-table .description { width: 40%; }
+#magazine-search-table .year, #magazine-search-table .month, #magazine-search-table .number {width: 10%; } 
+#magazine-search-table .edit, #magazine-search-table .delete  { width: 5%; }
+
+#magazine-details-table { width: 100% }
+#magazine-details-table .number, #magazine-details-table .published-date, #magazine-details-table .month { width: 10%; }
+
+#wishlist-table { width: 100%; }
+#wishlist-table .amazon-search, #wishlist-table .delete { width: 10% }
+#wishlist-table .title, #wishlist-table .author { width: 30%; }
+#wishlist-table .publisher { width: 20%; }
+

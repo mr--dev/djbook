@@ -1,0 +1,47 @@
+{% extends "myreadings/base.html" %}
+
+{% block content %}
+<div class="container">
+
+	<!-- Left Col -->
+	<div class="col-sm-9">
+		<div class="jumbotron">
+			<p>Your library counts {{tot_books}} books and {{tot_magazines}} magazines.</p>
+			<p>You're currently reading {{currently_reading_books.count}} book(s) and {{currently_reading_magazines.count}} magazine(s) this month.</p>
+			<p>This month you have read {{month_read_books}} book(s).</p>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<h2>On the shelf</h2>
+				{% if currently_reading_books.count == 0 %}
+					<p>There're no books on the shelf, come on!</p>
+				{% else %}
+					<ul>
+					{% for crb in currently_reading_books %}
+						<li><a href="/myreadings/book/{{crb.id}}/details/">{{crb.title}}</a></li>
+					{% endfor %}
+					</ul>
+				{% endif %}
+			</div>
+			<div class="col-sm-6">
+				<h2>Magazines</h2>
+				{% if currently_reading_magazines.count == 0 %}
+					<p>You've bought no magazines this month, cheap!</p>
+				{% else %}
+					<ul>
+					{% for crm in currently_reading_magazines %}
+						<li>{{crm.title}}</li>
+					{% endfor %}
+					</ul>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<!-- /.Left Col -->
+	
+	<!-- Right Col -->
+	{% include "myreadings/sidebar_action.html" %}
+	<!-- /.Right Col -->
+	
+</div>
+{% endblock %}

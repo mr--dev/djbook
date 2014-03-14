@@ -1,0 +1,112 @@
+{% extends "myreadings/base.html" %}
+
+{% load staticfiles %}
+{% block content %}
+<div class="container">
+
+	<!-- Left Col -->
+	<div class="col-sm-9">
+		<!-- Books -->
+		<div class="row">
+			<form class="form-horizontal" role="form" method="POST" action="/myreadings/book/save/" id="book-form">
+				{% csrf_token %}
+				<fieldset>
+					<legend>Book - detail</legend>
+					<input type="hidden" name="book-id" id="book-id" value="{{book.id}}" />
+					<input type="hidden" name="google-id" id="google-id" value="{{book.google_id}}" />
+					<div class="form-group">
+						<div class="col-sm-offset-10">
+							<button class="btn btn-primary btn-sm" type="button" id="book-info-btn">
+								<span class="glyphicon glyphicon-download"></span> Get Book Info
+							</button>
+							<span class="label label-info" id="book-info-help"><span class="glyphicon glyphicon-question-sign"></span> </span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="isbn" class="col-sm-2 control-label">ISBN</label>
+						<div class="col-sm-4">
+							<input type="text" name="isbn" id="isbn" class="form-control" value="{{book.isbn}}" />
+							<span class="help-block">13 characters</span>
+						</div>
+						<label for="title" class="col-sm-2 control-label">Title</label>
+						<div class="col-sm-4">
+							<input type="text" name="title" id="title" class="form-control update" value="{{book.title}}"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="author" class="col-sm-2 control-label">Author</label>
+						<div class="col-sm-4">
+							<input type="text" name="author" id="author" class="form-control update" value="{% if book.id %}{{book.author_set.all|join:", "}}{% endif %}"/>
+							<span class="help-block">Multiple authors comma separated</span>
+						</div>
+						<label for="publisher" class="col-sm-2 control-label">Publisher</label>
+						<div class="col-sm-4">
+							<input type="text" name="publisher" id="publisher" class="form-control" value="{{book.publisher}}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="published-date" class="col-sm-1 control-label">Year</label>
+						<div class="col-sm-2">
+							<input type="text" name="published-date" id="published-date" class="form-control" 
+								value="{% if book.published_date != '-1' %}{{book.published_date}}{% else %}{% endif %}" />
+						</div>
+						<label for="page-count" class="col-sm-1 control-label">Page</label>
+						<div class="col-sm-2">
+							<input type="text" name="page-count" id="page-count" class="form-control" value="{% if book.page_count and book.page_count != -1 %}{{book.page_count}}{% else %}{% endif %}"/>
+						</div>
+						<label for="description" class="col-sm-2 control-label">Description</label>
+						<div class="col-sm-4">
+							<textarea class="form-control" name="description" id="description" rows="4" style="resize: none;">{{book.description}}</textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-1 col-sm-2">
+							<div class="checkbox">
+								<label><input type="checkbox" id="ebook" name="ebook" {% if book.ebook %}checked="checked"{% endif %} >
+									Ebook
+								</label>
+							</div>
+						</div>
+						<div class="col-sm-offset-1 col-sm-2">
+							<div class="checkbox">
+								<label><input type="checkbox" id="currently-reading" name="currently-reading" {% if book.currently_reading%}checked="checked"{% endif %}>
+									Curr. reading
+								</label>
+							</div>
+						</div>
+						<label for="thumbnail" class="col-sm-2 control-label">Thumbnail</label>
+						<div class="col-sm-4">
+							<input type="text" name="thumbnail" id="thumbnail" class="form-control update" value="{{book.thumbnail}}">
+							<span class="help-block">Insert URL</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary col-sm-12">
+						<span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		
+	</div>
+	<!-- /.Left Col -->
+	
+	<!-- Right Col -->
+	<div class="col-sm-3" id="search-form">
+		<div class="panel panel-success" style="padding: 5px;">
+			<div class="panel-heading">Summary</div>
+			<div class="panel-body">
+				<img id="summary-thumbnail" src="{{book.thumbnail}}" class="book-thumbnail img-thumbnail">
+				<p id="summary-title" class="text-center" style="font-weight: bold;">{{book.title}}</p>
+				<p id="summary-author" class="text-center" style="font-style: italic;">{% if book.id %}{{book.author_set.all|join:", "}}{% endif %}</p>
+			</div>
+		</div>
+	</div>
+	<!-- /.Right Col -->
+	
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'myreadings/js/book.js' %}"></script>
+{% endblock %}

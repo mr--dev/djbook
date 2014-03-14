@@ -1,0 +1,108 @@
+{% extends "myreadings/base.html" %}
+
+{% load staticfiles %}
+{% block content %}
+<div class="container">
+
+	<!-- Left Col -->
+	<div class="col-sm-9">
+		<!-- Books Detail-->
+		<form class="form-horizontal" role="form">
+			<fieldset>
+				<legend>Book - details</legend>
+			</fieldset>
+			<div class="row">
+				<div class="col-sm-3">
+					<img class="book-thumbnail img-thumbnail" src="{{book.thumbnail}}">
+				</div>
+				<div class="col-sm-9">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Title:</label>
+						<div class="col-sm-4">
+							<p id="title" class="form-control-static">{{book.title}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Author:</label>
+						<div class="col-sm-4">
+							<p class="form-control-static">{{book.author_set.all|join:", "}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Publisher:</label>
+						<div class="col-sm-4">
+							<p class="form-control-static">{{book.publisher}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Year:</label>
+						<div class="col-sm-2">
+							<p class="form-control-static">{{book.published_date}}</p>
+						</div>
+						<label class="col-sm-2 control-label">Page:</label>
+						<div class="col-sm-2">
+							<p class="form-control-static">{% if book.page_count != -1 %}{{book.page_count}}{% else %}{% endif %}</p>
+						</div>
+						<label class="col-sm-2 control-label">Ebook:</label>
+						<div class="col-sm-2">
+							<p class="form-control-static">{% if book.ebook %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Description</label>
+						<div class="col-sm-10">
+							<p class="form-control-static book-description">{{book.description}}</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">Read &amp; Rate</label>
+						<div class="col-sm-6">
+							{% if book.readrate_set.all|length == 0%}
+								<p class="form-control-static">You apparently have not read this book.</p>
+							{% else %}
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Year</th>
+											<th>Month</th>
+											<th>Rate</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for rr in book.readrate_set.all %}
+										<tr>
+											<td>{{rr.year}}</td>
+											<td>{{rr.month}}</td>
+											<td>
+												{% for i in "12345"|make_list %}
+													{% if forloop.counter <= rr.rate %}
+														<span class="glyphicon glyphicon-star"></span>
+													{% else %}
+														<span class="glyphicon glyphicon-star-empty"></span>
+													{% endif %}
+												{% endfor %}
+											</td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		
+	</div>
+	<!-- /.Left Col -->
+	
+	<!-- Right Col -->
+	{% include "myreadings/sidebar_action.html" %}
+	<!-- /.Right Col -->
+	
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'myreadings/js/book.js' %}"></script>
+{% endblock %}

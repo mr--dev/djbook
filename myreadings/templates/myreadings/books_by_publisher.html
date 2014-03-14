@@ -1,0 +1,54 @@
+{% extends "myreadings/base.html" %}
+
+{% load staticfiles %}
+{% block content %}
+<div class="container">
+
+	<!-- Left Col -->
+	<div class="col-sm-9">
+		<!-- Books Detail-->
+		<form class="form-horizontal" role="form">
+			<fieldset>
+				<legend>Books by {{publisher.publisher}} - [{{books|length}}]</legend>
+			</fieldset>
+			<div class="row">
+				<div class="col-sm-12">
+					<table class="table table-striped table-hover table-condensed" id="books-by-author-table">
+						<thead>
+							<tr>
+								<th class="title">Title</th>
+								<th class="author">Author</th>
+								<th class="publisher">Publisher</th>
+								<th class="ebook">Ebook</th>
+								<th class="currently-reading">Curr. reading</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for b in books %}
+							<tr>
+								<td class="title"><a href="/myreadings/book/{{b.id}}/details/">{{b.title}}</a></td>
+								<td class="author">{{b.author_set.all|join:", "}}</td>
+								<td class="publisher">{{b.publisher}}</td>
+								<td class="ebook">{% if b.ebook %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td>
+								<td class="currently-reading">{% if b.currently_reading %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</form>
+		
+	</div>
+	<!-- /.Left Col -->
+	
+	<!-- Right Col -->
+	{% include "myreadings/sidebar_action.html" %}
+	<!-- /.Right Col -->
+	
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'myreadings/js/books.js' %}"></script>
+{% endblock %}
