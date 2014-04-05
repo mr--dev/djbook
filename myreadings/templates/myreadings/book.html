@@ -60,17 +60,24 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-sm-offset-1 col-sm-2">
+						<div class="col-sm-2">
 							<div class="checkbox">
 								<label><input type="checkbox" id="ebook" name="ebook" {% if book.ebook %}checked="checked"{% endif %} >
 									Ebook
 								</label>
 							</div>
 						</div>
-						<div class="col-sm-offset-1 col-sm-2">
+						<div class="col-sm-2">
 							<div class="checkbox">
 								<label><input type="checkbox" id="currently-reading" name="currently-reading" {% if book.currently_reading%}checked="checked"{% endif %}>
 									Curr. reading
+								</label>
+							</div>
+						</div>
+						<div class="col-sm-2">
+							<div class="checkbox">
+								<label><input type="checkbox" id="borrowed" name="borrowed" {% if book.borrowed%}checked="checked"{% endif %}>
+									Borrowed
 								</label>
 							</div>
 						</div>

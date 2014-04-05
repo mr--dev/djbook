@@ -16,6 +16,7 @@ class Book(models.Model):
     isbn = models.CharField(max_length=15)
     google_id = models.CharField(max_length=15)
     currently_reading = models.BooleanField()
+    borrowed = models.BooleanField()
     publisher = models.ForeignKey(Publisher)
     
     def __unicode__(self):

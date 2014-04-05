@@ -21,9 +21,9 @@ tr.readrate td { background-color: #d0e9c6 !important; }
 
 #book-search-table { width: 100%; }
 #book-search-table .title { width: 30% }
-#book-search-table .author { width: 25% }
+#book-search-table .author { width: 20% }
 #book-search-table .publisher {width: 20%; }
-#book-search-table .ebook, #book-search-table .currently-reading, #book-search-table .read-rate, #book-search-table .edit, #book-search-table .delete { width: 5% }
+#book-search-table .ebook, #book-search-table .currently-reading, #book-search-table .borrowed, #book-search-table .read-rate, #book-search-table .edit, #book-search-table .delete { width: 5% }
 
 #books-by-author-table { width: 100%; }
 #books-by-author-table .title, #books-by-author-table .author { width: 30%; }

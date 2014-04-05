@@ -18,6 +18,7 @@
 							<th class="publisher">Publisher</th>
 							<th class="ebook">Ebook</th>
 							<th class="currently-reading">Curr. reading</th>
+							<th class="borrowed">Borr.</th>
 							<th class="read-rate">R&amp;R</th>
 							<th class="edit">&nbsp;</th>
 							<th class="delete">&nbsp;</th>
@@ -35,6 +36,7 @@
 							<td class="publisher"><a href="/myreadings/book/publisher/{{b.publisher.id}}/">{{b.publisher}}</a></td>
 							<td class="ebook">{% if b.ebook %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td>
 							<td class="currently-reading">{% if b.currently_reading %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td>
+							<td class="borrowed">{% if b.borrowed %}<span class="glyphicon glyphicon-ok"></span>{% endif %}</td>
 							<td class="read-rate text-center"><a onclick="javascript:b.showReadRateBook({{b.id}}, this)">
 								<span class="glyphicon {% if b.readrate_set.all|length == 0 %}glyphicon-star-empty{% else %}glyphicon-star{% endif%}"></span></a>
 							</td>

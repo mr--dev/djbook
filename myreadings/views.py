@@ -119,6 +119,7 @@ def save_book(request):
     b.thumbnail = request.POST['thumbnail']
     b.ebook = True if 'ebook' in request.POST else False
     b.currently_reading = True if 'currently-reading' in request.POST else False
+    b.borrowed = True if 'borrowed' in request.POST else False
     
     #Update Publisher
     p = Publisher.objects.get_or_create(publisher=request.POST['publisher'])[0]
